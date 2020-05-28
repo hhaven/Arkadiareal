@@ -12,14 +12,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Options.unity
     guid: fb6788013b8a477429a8e3e72636453e
   - enabled: 1
-    path: Assets/Scenes/Shops/StoreItems.unity
-    guid: 9c47c53290cd91c42894420990e47dc0
-  - enabled: 1
     path: Assets/Scenes/Characters.unity
     guid: ae06e529e7b00df45a114dda417cf224
   - enabled: 1
     path: Assets/Scenes/Town.unity
     guid: 8c9d90783e95d2b4bb330e1f85e6198a
+  - enabled: 1
+    path: Assets/Scenes/Shops/StoreItems.unity
+    guid: 9c47c53290cd91c42894420990e47dc0
+  - enabled: 1
+    path: Assets/Scenes/Shops/ArmorShop.unity
+    guid: 4e72010f69308994088f6c001677a300
+  - enabled: 1
+    path: Assets/Scenes/Shops/StoreWeapons.unity
+    guid: dc3702563bdc7b84a90b96d2e0fdda91
   - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 3eb9f95c0f522c640840944e970027d8
