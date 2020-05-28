@@ -9,6 +9,19 @@ public class Options : MonoBehaviour
     // Start is called before the first frame update
     public void ButtonReturns()
     {
-        SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Options"))
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
+
+
+    public void ButtonBack()
+    {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Options"))
+        {
+            SceneManager.LoadScene("Town");
+        }
+    }
+
 }

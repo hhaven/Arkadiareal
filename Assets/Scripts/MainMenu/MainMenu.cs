@@ -10,12 +10,17 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
     }
 
     public void OptionsGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+       
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Menu"))
+        {
+            SceneManager.LoadScene("Options");
+        }
+       
     }
 
     public void QuitGame()
