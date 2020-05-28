@@ -28,7 +28,9 @@ public class CharacterPanel : MonoBehaviour
 
     public void CharacterInfo()
     {
+        
         text_name_character.text = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
+        text_name_character.text = EventSystem.current.currentSelectedGameObject.transform.Find("text_health").GetComponent<Text>().text;
         image_character = EventSystem.current.currentSelectedGameObject.transform.Find("Image").GetComponent<Image>().sprite;
         GameObject.Find("image_character").GetComponent<Image>().sprite = image_character;
     }
