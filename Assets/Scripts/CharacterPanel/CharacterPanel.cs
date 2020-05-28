@@ -12,6 +12,8 @@ public class CharacterPanel : MonoBehaviour
     public GameObject Panel;
     public GameObject Panel2;
     public Text text_name_character;
+    public Text text_health;
+    public Text text_lvl;
     public Sprite image_character;
 
 
@@ -31,6 +33,8 @@ public class CharacterPanel : MonoBehaviour
         text_name_character.text = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
         image_character = EventSystem.current.currentSelectedGameObject.transform.Find("Image").GetComponent<Image>().sprite;
         GameObject.Find("image_character").GetComponent<Image>().sprite = image_character;
+        text_health.text = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
+        text_lvl.text = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text;
     }
 
     
