@@ -20,12 +20,7 @@ public class MainMenu : MonoBehaviour
         {
             SceneManager.LoadScene("Options");
         }
-        /*
-       else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Options"))
-       {
-           SceneManager.LoadScene("Menu");
-       }
-       */
+       
     }
 
     public void QuitGame()

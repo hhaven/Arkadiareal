@@ -18,12 +18,8 @@ public class TownPanel : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Town"))
         {
             SceneManager.LoadScene("Options");
-        }/*
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Options"))
-        {
-            SceneManager.LoadScene("Town");
         }
-        */
+        
     }
 
     public void CharactersButton()
