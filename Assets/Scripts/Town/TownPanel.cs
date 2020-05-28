@@ -4,11 +4,17 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Options : MonoBehaviour
+public class TownPanel : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void ButtonReturns()
+    public void QuitButton()
     {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OptionsButton()
+    {
+
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Town"))
         {
             SceneManager.LoadScene("Options");
@@ -17,10 +23,11 @@ public class Options : MonoBehaviour
         {
             SceneManager.LoadScene("Town");
         }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Menu"))
-        {
-            SceneManager.LoadScene("Options");
-        }
-        else SceneManager.LoadScene(0);
     }
+
+    public void CharactersButton()
+    {
+        SceneManager.LoadScene(3);
+    }
+
 }
