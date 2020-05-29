@@ -43,4 +43,9 @@ public class TownPanel : MonoBehaviour
         SceneManager.LoadScene("StoreWeapons");
     }
 
+    public void todungeonButton()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
 }

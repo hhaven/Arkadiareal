@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 public class ToTwonFromGame : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void TownReturn()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
         SceneManager.LoadScene("Town");
-
     }
 }
