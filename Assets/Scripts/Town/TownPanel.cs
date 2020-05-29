@@ -9,7 +9,7 @@ public class TownPanel : MonoBehaviour
     // Start is called before the first frame update
     public void QuitButton()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Menu");
     }
 
     public void OptionsButton()
@@ -24,7 +24,23 @@ public class TownPanel : MonoBehaviour
 
     public void CharactersButton()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Characters");
+    }
+
+    public void ItemsButton()
+    {
+        SceneManager.LoadScene("StoreItems");
+
+    }
+
+    public void ArmorButton()
+    {
+        SceneManager.LoadScene("ArmorShop");
+    }
+
+    public void WeaponsButton()
+    {
+        SceneManager.LoadScene("StoreWeapons");
     }
 
 }

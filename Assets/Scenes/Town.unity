@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 71233237}
   - component: {fileID: 71233236}
   m_Layer: 5
-  m_Name: GearButton
+  m_Name: ArmorButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +301,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71233237}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485408744}
+        m_MethodName: ArmorButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71233237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +382,7 @@ RectTransform:
   m_Children:
   - {fileID: 1818858778}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -420,7 +431,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 164933729}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485408744}
+        m_MethodName: ItemsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &164933729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,13 +589,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 567164935}
-  - {fileID: 1780898593}
-  - {fileID: 71233235}
   - {fileID: 164933727}
-  - {fileID: 1101283476}
-  - {fileID: 632200945}
-  - {fileID: 1292640766}
+  - {fileID: 71233235}
+  - {fileID: 1780898593}
   - {fileID: 844200566}
+  - {fileID: 1292640766}
+  - {fileID: 632200945}
+  - {fileID: 1101283476}
   m_Father: {fileID: 9154112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -819,7 +841,7 @@ RectTransform:
   m_Children:
   - {fileID: 467945708}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1032,7 +1054,7 @@ RectTransform:
   m_Children:
   - {fileID: 568976094}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1209,7 +1231,7 @@ GameObject:
   - component: {fileID: 1097928417}
   - component: {fileID: 1097928416}
   m_Layer: 5
-  m_Name: Gear
+  m_Name: Armors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1266,7 +1288,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Gear
+  m_Text: Armors
 --- !u!222 &1097928417
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1307,7 +1329,7 @@ RectTransform:
   m_Children:
   - {fileID: 1817799444}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1437,7 +1459,7 @@ RectTransform:
   m_Children:
   - {fileID: 892543774}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1645,7 +1667,7 @@ RectTransform:
   m_Children:
   - {fileID: 1716505917}
   m_Father: {fileID: 485408741}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1694,7 +1716,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1780898595}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 485408744}
+        m_MethodName: WeaponsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1780898595
 MonoBehaviour:
   m_ObjectHideFlags: 0
