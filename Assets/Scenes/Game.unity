@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 1877016784}
   - component: {fileID: 1877016785}
   m_Layer: 0
-  m_Name: pixil-frame-0 (2)
+  m_Name: enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
