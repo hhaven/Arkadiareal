@@ -12,9 +12,13 @@ public class BattleSystem : MonoBehaviour
 
     public Transform playerBattleStation;
     public Transform enemyBattlestation;
+    public Transform enemyBattlestation2;
+    public Transform enemyBattlestation3;
 
     EnemyUnit playerUnit;
     EnemyUnit enemyUnit;
+    EnemyUnit enemyUnit2;
+    EnemyUnit enemyUnit3;
 
     public Text dialogueText;
 
@@ -34,21 +38,35 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<EnemyUnit>();
-        
-        
-        
 
+        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattlestation);
+        enemyUnit = enemyGO.GetComponent<EnemyUnit>();
 
-        randomNumber = Random.Range(0, 2);
+        randomNumber = Random.Range(0, 6);
 
-        if(randomNumber == 0)
+        if(randomNumber <= 2)
         {
-            GameObject enemyGO = Instantiate(enemyPrefab, enemyBattlestation);
-            enemyUnit = enemyGO.GetComponent<EnemyUnit>();
+            GameObject enemyGO2 = Instantiate(enemyPrefab, enemyBattlestation2);
+            enemyUnit2 = enemyGO2.GetComponent<EnemyUnit>();
+            dialogueText.text = "A " + enemyUnit.unitName + " and a " + enemyUnit2.unitName + " want to fight!";
 
         }
 
-        dialogueText.text = enemyUnit.unitName;
+        if (randomNumber == 3)
+        {
+            GameObject enemyGO2 = Instantiate(enemyPrefab, enemyBattlestation2);
+            enemyUnit2 = enemyGO2.GetComponent<EnemyUnit>();
+            GameObject enemyGO3 = Instantiate(enemyPrefab, enemyBattlestation3);
+            enemyUnit3 = enemyGO3.GetComponent<EnemyUnit>();
+            dialogueText.text = "A " + enemyUnit.unitName + ", " + enemyUnit2.unitName + " and a " + enemyUnit3.unitName + " want to fight!";
+
+        }
+        else if (randomNumber >= 4)
+        {
+            dialogueText.text = "A " + enemyUnit.unitName + " wants to fight!";
+        }
+        
+
     }
 
 }
