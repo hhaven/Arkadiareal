@@ -24,17 +24,19 @@ public class BattleSystem : MonoBehaviour
 
     private readonly Random _random = new Random();
     int randomNumber;
-  
+
+    public BattleHUD playerHUD;
+
 
     public BattleState state;
     // Start is called before the first frame update
     void Start()
     {
         state = BattleState.START;
-        SetupBattle();
+        StartCoroutine(SetupBattle());
     }
 
-    void SetupBattle()
+    IEnumerator SetupBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<EnemyUnit>();
@@ -44,7 +46,7 @@ public class BattleSystem : MonoBehaviour
 
         randomNumber = Random.Range(0, 6);
 
-        if(randomNumber <= 2)
+        if (randomNumber <= 2)
         {
             GameObject enemyGO2 = Instantiate(enemyPrefab, enemyBattlestation2);
             enemyUnit2 = enemyGO2.GetComponent<EnemyUnit>();
@@ -65,8 +67,20 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "A " + enemyUnit.unitName + " wants to fight!";
         }
-        
 
+        playerHUD.SetHUD(playerUnit);
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.PLAYERTURN;
+        PlayerTurn();
+
+
+    }
+
+    void PlayerTurn()
+    {
+        dialogueText.text = "Player turn";
     }
 
 }
