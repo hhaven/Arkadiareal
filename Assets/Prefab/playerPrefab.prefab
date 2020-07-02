@@ -89,6 +89,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: 1
   unitLevel: 1
-  damage: 1
+  damage: 5
   maxHP: 19
-  currentHP: 5
+  currentHP: 19

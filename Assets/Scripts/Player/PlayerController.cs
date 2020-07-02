@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         if (joistick.Vertical > 0.5f || joistick.Vertical < -0.5f)
         {
             transform.Translate(new Vector3(0f, joistick.Vertical * moveSpeed * Time.deltaTime, 0f));
+            
         }
 
     }
