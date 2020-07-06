@@ -6,6 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    
+    public GameObject EnterBTM;
+    public GameObject intro;
+
+    /*private void Update(){
+
+        
+        if (intro.GetComponent<AnimatedText>().getLineaActual() == intro.GetComponent<AnimatedText>().getLastLine() && intro.GetComponent<AnimatedText>().getCheckNext() && Input.GetKeyDown(KeyCode.Return)){
+
+            EnterBTM.SetActive(false);
+            StartCoroutine(LoadScene());
+        }
+    }*/
+
 
     public void PlayGame()
     {
