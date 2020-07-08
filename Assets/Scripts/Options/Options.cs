@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour
@@ -23,5 +24,6 @@ public class Options : MonoBehaviour
             SceneManager.LoadScene("Town");
         }
     }
+
 
 }
