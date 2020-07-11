@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(new Vector3(0f, joistick.Vertical * moveSpeed * Time.deltaTime, 0f));
             
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
         }
 
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WAIT, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -80,17 +80,23 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-        yield return new WaitForSeconds(2f);
-        if (isDead)
+        if (state == BattleState.PLAYERTURN)
         {
-            state = BattleState.WON;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            string myString = randomNumber.ToString();
+            dialogueText.text = myString;
+            bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+            state = BattleState.WAIT;
+            yield return new WaitForSeconds(2f);
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
         }
     }
 
@@ -104,6 +110,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "you lost";
         }
+
     }
 
     IEnumerator EnemyTurn()
