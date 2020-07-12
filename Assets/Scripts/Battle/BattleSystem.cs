@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WAIT, WON, LOST }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WAIT, TARGET, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -15,17 +15,23 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattlestation2;
     public Transform enemyBattlestation3;
 
-    EnemyUnit playerUnit;
+
+    PlayerUnit playerUnit;
     EnemyUnit enemyUnit;
     EnemyUnit enemyUnit2;
     EnemyUnit enemyUnit3;
 
     public Text dialogueText;
 
+    public int selection;
+    public int deadenemycount;
+
     private readonly Random _random = new Random();
     int randomNumber;
 
     public BattleHUD playerHUD;
+
+    public GameObject panel;
 
 
     public BattleState state;
@@ -39,7 +45,8 @@ public class BattleSystem : MonoBehaviour
     IEnumerator SetupBattle()
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<EnemyUnit>();
+        playerUnit = playerGO.GetComponent<PlayerUnit>();
+        
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattlestation);
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
@@ -67,72 +74,358 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "An enemy wants to fight!";
         }
-
+        yield return new WaitForEndOfFrame();
         playerHUD.SetHUD(playerUnit);
 
-        yield return new WaitForSeconds(2f);
 
+        yield return new WaitForSeconds(2f);
+        
         state = BattleState.PLAYERTURN;
         PlayerTurn();
 
 
     }
 
+
+    public void Selected1()
+    {
+        if (state == BattleState.TARGET)
+        {
+            selection = 1;
+            state = BattleState.PLAYERTURN;
+        }
+    }
+    public void Selected2()
+    {
+        if (state == BattleState.TARGET)
+        {
+            selection = 2;
+            state = BattleState.PLAYERTURN;
+        }
+    }
+    public void Selected3()
+    {
+        if (state == BattleState.TARGET)
+        {
+            selection = 3;
+            state = BattleState.PLAYERTURN;
+        }
+    }
     IEnumerator PlayerAttack()
     {
         if (state == BattleState.PLAYERTURN)
         {
-            string myString = randomNumber.ToString();
-            dialogueText.text = myString;
-            bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-            state = BattleState.WAIT;
-            yield return new WaitForSeconds(2f);
-            if (isDead)
+
+            if (randomNumber <= 2)
             {
-                state = BattleState.WON;
-                EndBattle();
+                dialogueText.text ="Tap on the enemy you want to attack";
+                state = BattleState.TARGET;
+                while (state == BattleState.TARGET)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+                
+                
+                switch (selection)
+                {
+                    case 1:
+                        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+                        if (isDead)
+                        {
+                            deadenemycount += 1;
+                            Destroy(GameObject.Find("enemyBattleStation"));
+                            if (deadenemycount == 2)
+                            {
+                                state = BattleState.WON;
+                                EndBattle();
+                            }
+                            else
+                            {
+                                state = BattleState.ENEMYTURN;
+                                StartCoroutine(EnemyTurn());
+                            }
+
+                        }
+                        else
+                        {
+                            state = BattleState.ENEMYTURN;
+                            StartCoroutine(EnemyTurn());
+                        }
+                        break;
+                    case 2:
+                        bool isDead2 = enemyUnit2.TakeDamage(playerUnit.damage);
+                        if (isDead2)
+                        {
+                            deadenemycount += 1;
+                            Destroy(GameObject.Find("enemyBattleStation2"));
+                            if (deadenemycount == 2)
+                            {
+                                state = BattleState.WON;
+                                EndBattle();
+                            }
+                            else
+                            {
+                                state = BattleState.ENEMYTURN;
+                                StartCoroutine(EnemyTurn());
+                            }
+                        }
+                        else
+                        {
+                            state = BattleState.ENEMYTURN;
+                            StartCoroutine(EnemyTurn());
+                        }
+                        break;
+
+                }
             }
-            else
+            else if (randomNumber == 3)
             {
-                state = BattleState.ENEMYTURN;
-                StartCoroutine(EnemyTurn());
+                string myString = randomNumber.ToString();
+                dialogueText.text = myString + " Tap on the enemy you want to attack";
+                state = BattleState.TARGET;
+                while (state == BattleState.TARGET)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+
+
+                switch (selection)
+                {
+                    case 1:
+                        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+                        dialogueText.text = enemyUnit.unitName + " died";
+                        if (isDead)
+                        {
+                            deadenemycount += 1;
+                            Destroy(GameObject.Find("enemyBattleStation"));
+                            if (deadenemycount == 3)
+                            {
+                                state = BattleState.WON;
+                                EndBattle();
+                            }
+                            else
+                            {
+                                state = BattleState.ENEMYTURN;
+                                StartCoroutine(EnemyTurn());
+                            }
+
+                        }
+                        else
+                        {
+                            state = BattleState.ENEMYTURN;
+                            StartCoroutine(EnemyTurn());
+                        }
+                        break;
+                    case 2:
+                        bool isDead2 = enemyUnit2.TakeDamage(playerUnit.damage);
+                        if (isDead2)
+                        {
+                            deadenemycount += 1;
+                            Destroy(GameObject.Find("enemyBattleStation2"));
+                            if (deadenemycount == 3)
+                            {
+                                state = BattleState.WON;
+                                EndBattle();
+                            }
+                            else
+                            {
+                                state = BattleState.ENEMYTURN;
+                                StartCoroutine(EnemyTurn());
+                            }
+                        }
+                        else
+                        {
+                            state = BattleState.ENEMYTURN;
+                            StartCoroutine(EnemyTurn());
+                        }
+                        break;
+                    case 3:
+                        bool isDead3 = enemyUnit3.TakeDamage(playerUnit.damage);
+                        if (isDead3)
+                        {
+                            deadenemycount += 1;
+                            Destroy(GameObject.Find("enemyBattleStation3"));
+                            if (deadenemycount == 3)
+                            {
+                                state = BattleState.WON;
+                                EndBattle();
+                            }
+                            else
+                            {
+                                state = BattleState.ENEMYTURN;
+                                StartCoroutine(EnemyTurn());
+                            }
+                        }
+                        else
+                        {
+                            state = BattleState.ENEMYTURN;
+                            StartCoroutine(EnemyTurn());
+                        }
+                        break;
+
+                }
             }
+            else if (randomNumber >= 4)
+            {
+                string myString = randomNumber.ToString();
+                dialogueText.text = myString;
+                bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+                state = BattleState.WAIT;
+                yield return new WaitForEndOfFrame();
+                if (isDead)
+                {
+                    Destroy(GameObject.Find("enemyBattleStation"));
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    state = BattleState.ENEMYTURN;
+                    StartCoroutine(EnemyTurn());
+                }
+            }
+            
         }
     }
+    // detects clicked enemy
+    
 
     void EndBattle()
     {
         if(state == BattleState.WON)
         {
             dialogueText.text = "you won the battle";
+
+
         }
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "you lost";
-        }
 
+        }
+        StartCoroutine(DestroyBattle());
+
+        
+
+    }
+
+    IEnumerator DestroyBattle()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(GameObject.FindGameObjectWithTag("battle"));
     }
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + "attacks";
-        yield return new WaitForSeconds(1f);
-
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-
-        playerHUD.SetHP(playerUnit.currentHP);
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
+        if (randomNumber <= 2) //two enemies
         {
-            state = BattleState.LOST;
-            EndBattle();
+            if (enemyUnit.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+                if (isDead)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+            }
+            if (enemyUnit2.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit2.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead2 = playerUnit.TakeDamage(enemyUnit2.damage);
+                if (isDead2)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+
+            }
+
+            playerHUD.SetHP(playerUnit.currentHP);
+            yield return new WaitForSeconds(1f);
+
+            if (state != BattleState.LOST)
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
         }
-        else
+        
+        else if (randomNumber == 3) //three enemies
         {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            if (enemyUnit.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+                if (isDead)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+            }
+            if (enemyUnit2.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit2.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead2 = playerUnit.TakeDamage(enemyUnit2.damage);
+                if (isDead2)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+
+            }
+            if (enemyUnit3.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit3.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead3 = playerUnit.TakeDamage(enemyUnit3.damage);
+                if (isDead3)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+
+            }
+
+            playerHUD.SetHP(playerUnit.currentHP);
+            yield return new WaitForSeconds(1f);
+
+            if (playerUnit.currentHP != 0)
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
         }
+
+        else //one enemy
+        {
+            if (enemyUnit.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+                if (isDead)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+            }
+
+            playerHUD.SetHP(playerUnit.currentHP);
+            yield return new WaitForSeconds(1f);
+
+            if (playerUnit.currentHP != 0)
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+        }
+
+        
     }
 
     void PlayerTurn()

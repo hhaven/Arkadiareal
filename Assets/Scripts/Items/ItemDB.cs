@@ -10,7 +10,7 @@ public class ItemDB : MonoBehaviour
     {
         BuildItemDB();
     }
-
+    /*
     public ItemDB GetItem(int id)
     {
         return items.Find(item => item.id == id);
@@ -20,7 +20,7 @@ public class ItemDB : MonoBehaviour
     {
         return items.Find(item => item.title == title);
     }
-
+    */
     void BuildItemDB()
     {
         items = new List<Item>()
@@ -30,7 +30,7 @@ public class ItemDB : MonoBehaviour
             {
                 {"Poder", 12 },
                 {"Critico", 24}
-            }),
+            }, 10),
             new Item(2, "Espada de fuego", "Daño de fuego a enemigos",
             new Dictionary<string, int>
             {
@@ -41,7 +41,7 @@ public class ItemDB : MonoBehaviour
             new Dictionary<string, int>
             {
                 {"Poder", 20 },
-                {"Critico", 40 }
+                {"Critico", 40 },
             }, 150),
             new Item(4, "Espada de hielo", "Efecto de congelacion",
             new Dictionary<string, int>

@@ -9,6 +9,8 @@ public class EnemyCollide : MonoBehaviour
     public GameObject Panel;
     public GameObject Panel2;
     public GameObject Player;
+    public GameObject BattlePrefab;
+    
 
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,8 +20,8 @@ public class EnemyCollide : MonoBehaviour
         {
             
             Panel.SetActive(false);
-            Panel2.SetActive(true);
-            
+            GameObject BATTLE = Instantiate(BattlePrefab);
+
         }
 
         Destroy(this.gameObject);

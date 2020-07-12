@@ -15,9 +15,22 @@ public class EnemyUnit : MonoBehaviour
     public int maxHP;
     public int currentHP;
 
+    public int XP;
+
     Image myImageComponent;
-    public Sprite myFirstImage;
-    public Sprite mySecondImage;
+    public Sprite plantImage;
+    public Sprite rockImage;
+    public Sprite penguinImage;
+   /* public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;
+    public Sprite Image;*/
 
 
     void Start()
@@ -39,7 +52,7 @@ public class EnemyUnit : MonoBehaviour
                 abilitydamage = 4;
                 maxHP = 11;
                 currentHP = 11;
-                myImageComponent.sprite = mySecondImage;
+                myImageComponent.sprite = plantImage;
                 break;
             case 2:
                 unitName = "Rock";
@@ -48,15 +61,16 @@ public class EnemyUnit : MonoBehaviour
                 abilitydamage = 3;
                 maxHP = 16;
                 currentHP = 16;
+                myImageComponent.sprite = rockImage;
                 break;
             case 3:
-                unitName = "Reaper";
+                unitName = "Penguin";
                 unitLevel = 3;
                 damage = 6;
                 abilitydamage = 3;
                 maxHP = 4;
                 currentHP = 4;
-                myImageComponent.sprite = myFirstImage;
+                myImageComponent.sprite = penguinImage;
                 break;
         };
     }
@@ -72,4 +86,12 @@ public class EnemyUnit : MonoBehaviour
         else
             return false;
     }
+
+    public void TakeDamage2(int dmg)
+    {
+        currentHP -= dmg;
+    }
+
+
+
 }
