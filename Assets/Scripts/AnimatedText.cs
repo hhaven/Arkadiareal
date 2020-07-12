@@ -18,7 +18,8 @@ public class AnimatedText : MonoBehaviour
 		StartCoroutine(TypeText(lineaActual));
 	}
 
-    private void Update()
+
+    public void Update()
     {
         if(checkNext)
         {
@@ -29,7 +30,7 @@ public class AnimatedText : MonoBehaviour
             enter.SetActive(false);
         }
 
-        if(lineaActual < message.Length - 1 && checkNext && Input.GetKeyDown(KeyCode.Return))
+        if(lineaActual < message.Length - 1 && checkNext && Input.GetMouseButton(0))
         {
             lineaActual++;
 
