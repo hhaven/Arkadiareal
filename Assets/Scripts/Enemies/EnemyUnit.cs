@@ -9,11 +9,11 @@ public class EnemyUnit : MonoBehaviour
     public string unitName;
     public int unitLevel;
 
-    public int damage;
-    public int abilitydamage;
+    public double damage;
+    public double abilitydamage;
 
-    public int maxHP;
-    public int currentHP;
+    public double maxHP;
+    public double currentHP;
 
     public int XP;
 
@@ -78,7 +78,7 @@ public class EnemyUnit : MonoBehaviour
         };
     }
 
-    public bool TakeDamage(int dmg)
+    public bool TakeDamage(double dmg)
     {
         currentHP -= dmg;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattlestation2;
     public Transform enemyBattlestation3;
 
+    GameObject player;
 
     PlayerUnit playerUnit;
     EnemyUnit enemyUnit;
@@ -38,12 +40,17 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("PlayerInfo");
+        panel = GameObject.Find("Main");
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
+    
+
     IEnumerator SetupBattle()
     {
+
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = playerGO.GetComponent<PlayerUnit>();
         
@@ -51,7 +58,7 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattlestation);
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
 
-        randomNumber = Random.Range(0, 6);
+        randomNumber = Random.Range(0, 7);
 
         if (randomNumber <= 2)
         {
@@ -295,23 +302,77 @@ public class BattleSystem : MonoBehaviour
         if(state == BattleState.WON)
         {
             dialogueText.text = "you won the battle";
+            StartCoroutine(ReceiveExperience());
+            if (player.GetComponent<PlayerStats>().maxXP == player.GetComponent<PlayerStats>().currentXP)
+            {
+                player.GetComponent<PlayerStats>().LevelUp();
+                dialogueText.text = "you leveled up!";
+            }
+            
+            StartCoroutine(DestroyBattle());
 
 
         }
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "you lost";
+            StartCoroutine(DestroyBattle());
         }
-        StartCoroutine(DestroyBattle());
+        
 
         
 
     }
 
+    IEnumerator ReceiveExperience()
+    {
+        yield return new WaitForSeconds(1F);
+        if (randomNumber <= 2)
+        {
+            dialogueText.text = "you won " + (enemyUnit.XP + enemyUnit2.XP) + " experience points";
+            player.GetComponent<PlayerStats>().currentXP += enemyUnit.XP+enemyUnit2.XP;
+          
+        }
+        else if (randomNumber == 3)
+        {
+            dialogueText.text = "you won " + (enemyUnit.XP + enemyUnit2.XP + enemyUnit3.XP) + " experience points";
+            player.GetComponent<PlayerStats>().currentXP += enemyUnit.XP + enemyUnit2.XP + enemyUnit3.XP;
+            
+        }
+        else if (randomNumber >= 4)
+        {
+            dialogueText.text = "you won " + (enemyUnit.XP) + " experience points";
+            player.GetComponent<PlayerStats>().currentXP += enemyUnit.XP;
+            
+        }
+
+
+
+        if (player.GetComponent<PlayerStats>().maxXP <= player.GetComponent<PlayerStats>().currentXP)
+        {
+            player.GetComponent<PlayerStats>().LevelUp();
+            dialogueText.text = "Congratulations you leveled up!";
+        }
+
+    }
+
     IEnumerator DestroyBattle()
     {
+        
         yield return new WaitForSeconds(2f);
+        panel.transform.GetChild(0).gameObject.SetActive(true);
+        //GameObject playercontroller = GameObject.FindGameObjectWithTag("Player");
+        GameObject joystick = GameObject.FindGameObjectWithTag("GameController");
+        joystick.SetActive(false);
+        //playercontroller.GetComponent<PlayerController>().enabled = false;
+        joystick.SetActive(true);
+        //playercontroller.GetComponent<PlayerController>().enabled = true;*/
+        //GameObject.FindGameObjectWithTag("GameScreen").SetActive(true);
+
+        GameObject.Find("Player").GetComponent<PlayerController>().acceptmovement = false;
+        Input.ResetInputAxes();
         Destroy(GameObject.FindGameObjectWithTag("battle"));
+        
     }
 
     IEnumerator EnemyTurn()
@@ -342,7 +403,7 @@ public class BattleSystem : MonoBehaviour
 
             }
 
-            playerHUD.SetHP(playerUnit.currentHP);
+            playerHUD.SetHP((float)playerUnit.currentHP);
             yield return new WaitForSeconds(1f);
 
             if (state != BattleState.LOST)
@@ -390,7 +451,7 @@ public class BattleSystem : MonoBehaviour
 
             }
 
-            playerHUD.SetHP(playerUnit.currentHP);
+            playerHUD.SetHP((float)playerUnit.currentHP);
             yield return new WaitForSeconds(1f);
 
             if (playerUnit.currentHP != 0)
@@ -414,7 +475,7 @@ public class BattleSystem : MonoBehaviour
                 }
             }
 
-            playerHUD.SetHP(playerUnit.currentHP);
+            playerHUD.SetHP((float)playerUnit.currentHP);
             yield return new WaitForSeconds(1f);
 
             if (playerUnit.currentHP != 0)

@@ -9,15 +9,18 @@ public class PlayerUnit : MonoBehaviour
     public string unitName;
     public int unitLevel;
 
-    public int damage;
-    public int abilitydamage;
+    public double damage;
+    public double abilitydamage;
 
-    public int maxHP;
-    public int currentHP;
+    public double maxHP;
+    public double currentHP;
 
     Image myImageComponent;
     public Sprite myFirstImage;
     public Sprite mySecondImage;
+
+    public double maxXP;
+    public double currentXP;
 
     public GameObject playerInfo;
 
@@ -25,6 +28,7 @@ public class PlayerUnit : MonoBehaviour
     void Start()
     {
         myImageComponent = GetComponent<Image>();
+        playerInfo = GameObject.Find("PlayerInfo");
         CharacterDB(); //Create random enemy
 
     }
@@ -33,15 +37,17 @@ public class PlayerUnit : MonoBehaviour
     public void CharacterDB()
     {        
         unitName = "Macho";
-        unitLevel = 1;
-        damage = 5;
-        abilitydamage = 5;
-        maxHP = 30;
-        currentHP = 30;
+        unitLevel = playerInfo.GetComponent<PlayerStats>().unitLevel;
+        damage = playerInfo.GetComponent<PlayerStats>().damage;
+        abilitydamage = playerInfo.GetComponent<PlayerStats>().abilitydamage;
+        maxHP = playerInfo.GetComponent<PlayerStats>().maxHP;
+        maxXP = playerInfo.GetComponent<PlayerStats>().maxXP;
+        currentHP = playerInfo.GetComponent<PlayerStats>().currentHP;
+        currentXP = playerInfo.GetComponent<PlayerStats>().currentXP;
         myImageComponent.sprite = myFirstImage;            
     }
 
-    public bool TakeDamage(int dmg)
+    public bool TakeDamage(double dmg)
     {
         currentHP -= dmg;
 
