@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
+  /*  GameObject shopItemPrefab;
+
     [Header("List of items sold")]
     [SerializeField] private ItemShop[] itemShop;
 
@@ -40,6 +42,6 @@ public class Shop : MonoBehaviour
     private void OnButtonClick(ItemShop item)
     {
         Debug.Log(item.name);
-    }
+    }*/
 
 }
