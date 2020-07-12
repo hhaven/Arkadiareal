@@ -19,16 +19,18 @@ public class PlayerUnit : MonoBehaviour
     public Sprite myFirstImage;
     public Sprite mySecondImage;
 
+    public GameObject playerInfo;
+
     
     void Start()
     {
         myImageComponent = GetComponent<Image>();
-        EnemyDB(); //Create random enemy
+        CharacterDB(); //Create random enemy
 
     }
 
 
-    public void EnemyDB()
+    public void CharacterDB()
     {        
         unitName = "Macho";
         unitLevel = 1;
@@ -49,5 +51,10 @@ public class PlayerUnit : MonoBehaviour
         }
         else
             return false;
+    }
+
+    public void UpdateStats()
+    {
+        this.unitLevel = 
     }
 }

@@ -301,7 +301,6 @@ public class BattleSystem : MonoBehaviour
         else if (state == BattleState.LOST)
         {
             dialogueText.text = "you lost";
-
         }
         StartCoroutine(DestroyBattle());
 

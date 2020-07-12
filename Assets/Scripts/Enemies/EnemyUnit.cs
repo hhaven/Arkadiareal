@@ -52,6 +52,7 @@ public class EnemyUnit : MonoBehaviour
                 abilitydamage = 4;
                 maxHP = 11;
                 currentHP = 11;
+                XP = 15;
                 myImageComponent.sprite = plantImage;
                 break;
             case 2:
@@ -62,6 +63,7 @@ public class EnemyUnit : MonoBehaviour
                 maxHP = 16;
                 currentHP = 16;
                 myImageComponent.sprite = rockImage;
+                XP = 25;
                 break;
             case 3:
                 unitName = "Penguin";
@@ -70,6 +72,7 @@ public class EnemyUnit : MonoBehaviour
                 abilitydamage = 3;
                 maxHP = 4;
                 currentHP = 4;
+                XP = 35;
                 myImageComponent.sprite = penguinImage;
                 break;
         };
@@ -90,6 +93,7 @@ public class EnemyUnit : MonoBehaviour
     public void TakeDamage2(int dmg)
     {
         currentHP -= dmg;
+
     }
 
 
