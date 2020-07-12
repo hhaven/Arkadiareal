@@ -14,7 +14,7 @@ public class Item
 	{
 		this.id = id;
 		this.title = title;
-		this.decription = decription;
+		this.decription = description;
 		this.stats = stats;
 		this.price = price;
 		this.type = type;

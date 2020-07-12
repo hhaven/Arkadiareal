@@ -10,7 +10,7 @@ public class ItemDB : MonoBehaviour
     {
         BuildItemDB();
     }
-
+    /*
     public ItemDB GetItem(int id)
     {
         return items.Find(item => item.id == id);
@@ -24,7 +24,7 @@ public class ItemDB : MonoBehaviour
     public ItemDB GetItem(string type)
     {
         return items.Find(item => item.type == type);
-    }
+    }*/
 
     void BuildItemDB()
     {
@@ -82,8 +82,8 @@ public class ItemDB : MonoBehaviour
             new Item(7, "Armadura Omega", "La mejor armadura del juego",
             new Dictionary<string, int>
             {
-                {"Defensa", 55 ,"Armadura"},
-            }, 145)
+                {"Defensa", 55},
+            }, 145, "Armadura")
         };
     }
 
