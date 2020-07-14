@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WAIT, TARGET, WON, LOST }
@@ -15,6 +14,7 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattlestation;
     public Transform enemyBattlestation2;
     public Transform enemyBattlestation3;
+    public Transform BossBattleStation;
 
     GameObject player;
 
@@ -43,10 +43,38 @@ public class BattleSystem : MonoBehaviour
         player = GameObject.Find("PlayerInfo");
         panel = GameObject.Find("Main");
         state = BattleState.START;
-        StartCoroutine(SetupBattle());
+        if (player.GetComponent<PlayerStats>().isbossbattle)
+        {
+
+            randomNumber = -1;
+            StartCoroutine(SetupBossBattle());
+        }
+        else
+        {
+            StartCoroutine(SetupBattle());
+        }
     }
 
-    
+    IEnumerator SetupBossBattle()
+    {
+        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+        playerUnit = playerGO.GetComponent<PlayerUnit>();
+
+
+        GameObject enemyGO = Instantiate(enemyPrefab, BossBattleStation);
+        enemyUnit = enemyGO.GetComponent<EnemyUnit>();
+
+        yield return new WaitForEndOfFrame();
+        playerHUD.SetHUD(playerUnit);
+
+        dialogueText.text = "Defeat the boss!";
+
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.PLAYERTURN;
+        PlayerTurn();
+    }
 
     IEnumerator SetupBattle()
     {
@@ -122,8 +150,25 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.PLAYERTURN)
         {
+            if (player.GetComponent<PlayerStats>().isbossbattle)
+            {
 
-            if (randomNumber <= 2)
+                bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+                state = BattleState.WAIT;
+                yield return new WaitForEndOfFrame();
+                if (isDead)
+                {
+                    Destroy(GameObject.Find("BossBattleStation"));
+                    state = BattleState.WON;
+                    EndBattle();
+                }
+                else
+                {
+                    state = BattleState.ENEMYTURN;
+                    StartCoroutine(EnemyTurn());
+                }
+            }
+            else if (randomNumber <= 2)
             {
                 dialogueText.text ="Tap on the enemy you want to attack";
                 state = BattleState.TARGET;
@@ -291,6 +336,8 @@ public class BattleSystem : MonoBehaviour
                     StartCoroutine(EnemyTurn());
                 }
             }
+
+            
             
         }
     }
@@ -327,7 +374,13 @@ public class BattleSystem : MonoBehaviour
     IEnumerator ReceiveExperience()
     {
         yield return new WaitForSeconds(1F);
-        if (randomNumber <= 2)
+        if (player.GetComponent<PlayerStats>().isbossbattle)
+        {
+            dialogueText.text = "You defeated the boss!. Earned " + (enemyUnit.XP) + " experience points";
+            player.GetComponent<PlayerStats>().currentXP += enemyUnit.XP;
+
+        }
+        else if (randomNumber <= 2)
         {
             dialogueText.text = "you won " + (enemyUnit.XP + enemyUnit2.XP) + " experience points";
             player.GetComponent<PlayerStats>().currentXP += enemyUnit.XP+enemyUnit2.XP;
@@ -371,13 +424,58 @@ public class BattleSystem : MonoBehaviour
 
         GameObject.Find("Player").GetComponent<PlayerController>().acceptmovement = false;
         Input.ResetInputAxes();
-        Destroy(GameObject.FindGameObjectWithTag("battle"));
+        if (randomNumber == -1 || state == BattleState.LOST)
+        {
+            dialogueText.text = "Going back to town...";
+            if (randomNumber == -1 && state == BattleState.WON)
+            {
+                if(GameObject.Find("enemyPrefab(Clone)").GetComponent<EnemyUnit>().boss == 1 && player.GetComponent<PlayerStats>().bossdefeated == 0)
+                {
+                    player.GetComponent<PlayerStats>().bossdefeated = 1;
+                }
+                else if (GameObject.Find("enemyPrefab(Clone)").GetComponent<EnemyUnit>().boss == 2 && player.GetComponent<PlayerStats>().bossdefeated == 0)
+                {
+                    player.GetComponent<PlayerStats>().bossdefeated = 2;
+                }
+                else if (GameObject.Find("enemyPrefab(Clone)").GetComponent<EnemyUnit>().boss == 3 && player.GetComponent<PlayerStats>().bossdefeated == 0)
+                {
+                    player.GetComponent<PlayerStats>().bossdefeated = 3;
+                }
+            }
+            SceneManager.LoadScene("Town");
+        }
+        else {
+            Destroy(GameObject.FindGameObjectWithTag("battle"));
+        }
         
     }
 
     IEnumerator EnemyTurn()
     {
-        if (randomNumber <= 2) //two enemies
+        if (player.GetComponent<PlayerStats>().isbossbattle)
+        {
+            if (enemyUnit.currentHP >= 1)
+            {
+                dialogueText.text = enemyUnit.unitName + " attacks";
+                yield return new WaitForSeconds(1f);
+                bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+                if (isDead)
+                {
+                    state = BattleState.LOST;
+                    EndBattle();
+                }
+            }
+            playerHUD.SetHP((float)playerUnit.currentHP);
+            yield return new WaitForSeconds(1f);
+
+            if (state != BattleState.LOST)
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+        }
+
+        else if (randomNumber <= 2) //two enemies
         {
             if (enemyUnit.currentHP >= 1)
             {
@@ -478,7 +576,7 @@ public class BattleSystem : MonoBehaviour
             playerHUD.SetHP((float)playerUnit.currentHP);
             yield return new WaitForSeconds(1f);
 
-            if (playerUnit.currentHP != 0)
+            if (state != BattleState.LOST)
             {
                 state = BattleState.PLAYERTURN;
                 PlayerTurn();

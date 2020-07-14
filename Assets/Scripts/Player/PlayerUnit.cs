@@ -19,6 +19,8 @@ public class PlayerUnit : MonoBehaviour
     public Sprite myFirstImage;
     public Sprite mySecondImage;
 
+    public double defense;
+
     public double maxXP;
     public double currentXP;
 
@@ -44,12 +46,14 @@ public class PlayerUnit : MonoBehaviour
         maxXP = playerInfo.GetComponent<PlayerStats>().maxXP;
         currentHP = playerInfo.GetComponent<PlayerStats>().currentHP;
         currentXP = playerInfo.GetComponent<PlayerStats>().currentXP;
-        myImageComponent.sprite = myFirstImage;            
+
+        defense = playerInfo.GetComponent<PlayerStats>().defense;
+        myImageComponent.sprite = myFirstImage;       
     }
 
     public bool TakeDamage(double dmg)
     {
-        currentHP -= dmg;
+        currentHP -= dmg/*(100/(100+defense))*/;
 
         if (currentHP <= 0)
         {

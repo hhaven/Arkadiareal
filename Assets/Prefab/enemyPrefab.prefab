@@ -95,10 +95,20 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   XP: 0
+  boss: 0
   plantImage: {fileID: 21300000, guid: 0ae8b8bf69632fd4da69d07287198422, type: 3}
   rockImage: {fileID: 21300000, guid: 9b7ccbbfb635390478f694b0890446a2, type: 3}
   penguinImage: {fileID: -2510476293373519475, guid: a5cfa183d8fa99844b8531f9b999efe6,
     type: 3}
+  crabImage: {fileID: 21300000, guid: 2f4e8efa7d078754f82f0160b90b32a9, type: 3}
+  flowerImage: {fileID: 21300000, guid: 068c07e24b983ce4697f01376098a20b, type: 3}
+  lizardImage: {fileID: 21300000, guid: 62b39661cfbe4b14bbaef8e46dc14377, type: 3}
+  bossImage: {fileID: 21300000, guid: 1b80126277b13c849956417210e37634, type: 3}
+  bossImage2: {fileID: 21300000, guid: d70ac623944918e45bf82a05e4d26f7e, type: 3}
+  bossImage3: {fileID: 21300000, guid: 06c08aa0913808545b3b94af0653120d, type: 3}
+  thingyImage: {fileID: 21300000, guid: 887ac0883ff46e442a69d2d74a3103f3, type: 3}
+  scorpionImage: {fileID: 21300000, guid: 3f8d756fbaab714458f1a9e888356aba, type: 3}
+  cubeImage: {fileID: 21300000, guid: 57b5c8d197ec76d45bddcaa757071e74, type: 3}
 --- !u!114 &7151316519616681160
 MonoBehaviour:
   m_ObjectHideFlags: 0

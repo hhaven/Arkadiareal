@@ -22,6 +22,7 @@ public class TownPanel : MonoBehaviour
         
     }
 
+
     public void CharactersButton()
     {
         SceneManager.LoadScene("Characters");
@@ -46,6 +47,16 @@ public class TownPanel : MonoBehaviour
     public void todungeonButton()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    public void todungeonButton2()
+    {
+        SceneManager.LoadScene("Game1");
+    }
+
+    public void todungeonButton3()
+    {
+        SceneManager.LoadScene("Game2");
     }
 
 }

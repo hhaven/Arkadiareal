@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 3eb9f95c0f522c640840944e970027d8
   - enabled: 1
+    path: Assets/Scenes/Game1.unity
+    guid: 375fa7d87c44e5e4f92d8d276160661e
+  - enabled: 1
+    path: Assets/Scenes/Game2.unity
+    guid: 3569edabb8d8e0c44b83a3b09e50f410
+  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 59053876ae5a408469a24a551d1a0816
   m_configObjects: {}
