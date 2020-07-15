@@ -14,6 +14,7 @@ Software necesario:
 ## Authors
 - Daniel Van Gavarrete Abrego
 - Manuel Ricardo Gonzalez de Leon
-- Rafael Melara
-- Nelson
-## License
+- Rafael Alejandro Melara Ramirez
+- Nelson Mauricio Villalta Mossa
+## License && Copyright
+License under the MIT
