@@ -17,4 +17,4 @@ Software necesario:
 - Rafael Alejandro Melara Ramirez
 - Nelson Mauricio Villalta Mossa
 ## License && Copyright
-License under the [MIT License](README).
+License under the [MIT License](LICENSE).
